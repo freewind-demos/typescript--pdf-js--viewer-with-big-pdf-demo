@@ -5,8 +5,11 @@ import './node_modules/pdfjs-dist/web/pdf_viewer.css';
 const {PDFViewer} = require('pdfjs-dist/web/pdf_viewer.js');
 
 function renderInViewer(pdfDocument: PDFDocumentProxy) {
+  let container = document.getElementById('viewerContainer');
   const pdfViewer = new PDFViewer({
-    container: document.getElementById('viewerContainer'),
+    container: container,
+    viewer: container,
+    renderInteractiveForms: true,
   });
 
   document.addEventListener('pagesinit', function () {
@@ -19,7 +22,7 @@ function renderInViewer(pdfDocument: PDFDocumentProxy) {
 
 
 async function loadPdf() {
-  const pdf = await pdfjs.getDocument('http://localhost:46345/sample.pdf').promise
+  const pdf = await pdfjs.getDocument('/big.pdf').promise
   renderInViewer(pdf);
 }
 
